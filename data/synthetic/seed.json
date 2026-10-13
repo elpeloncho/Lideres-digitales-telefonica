@@ -77,5 +77,143 @@
       "source": "null_provider",
       "provenance": "unknown"
     }
+  },
+  {
+    "id": "DEMO-004",
+    "title": "Luminaria intermitente cerca del paseo marítimo",
+    "description": "Punto sintético con parpadeo localizado en la zona de mayor tránsito peatonal.",
+    "category": "streetlight_flickering",
+    "district": "Este",
+    "neighborhood": "La Malagueta",
+    "status": "pending",
+    "source_type": "synthetic",
+    "source_name": "demo_seed",
+    "is_synthetic": true,
+    "verification": "verified",
+    "latitude": 36.7198,
+    "longitude": -4.4029,
+    "created_at": "2026-10-12T18:00:00Z",
+    "age_hours": 18,
+    "pedestrian_use": 68,
+    "sensitive_location": 76,
+    "context_provenance": {
+      "pedestrian_use": "synthetic",
+      "sensitive_location": "synthetic"
+    },
+    "lighting_status": {
+      "state": "unknown",
+      "source": "null_provider",
+      "provenance": "unknown"
+    }
+  },
+  {
+    "id": "DEMO-005",
+    "title": "Poste con grietas en la acera",
+    "description": "Registro sintético para mostrar una intervención urgente en el distrito Centro.",
+    "category": "damaged_pole",
+    "district": "Centro",
+    "neighborhood": "Soho",
+    "status": "assigned",
+    "source_type": "synthetic",
+    "source_name": "demo_seed",
+    "is_synthetic": true,
+    "verification": "verified",
+    "assignee": "Lucía Díaz",
+    "latitude": 36.7182,
+    "longitude": -4.4186,
+    "created_at": "2026-10-13T04:30:00Z",
+    "age_hours": 5,
+    "pedestrian_use": 44,
+    "sensitive_location": 38,
+    "context_provenance": {
+      "pedestrian_use": "synthetic",
+      "sensitive_location": "synthetic"
+    },
+    "lighting_status": {
+      "state": "unknown",
+      "source": "null_provider",
+      "provenance": "unknown"
+    }
+  },
+  {
+    "id": "DEMO-006",
+    "title": "Fallo de alumbrado en barrio de viviendas",
+    "description": "Aviso ciudadano registrado como prueba de triaje y validación local.",
+    "category": "streetlight_failure",
+    "district": "Palma-Palmilla",
+    "neighborhood": "La Palmilla",
+    "status": "reported",
+    "source_type": "resident_report",
+    "source_name": "public_report",
+    "is_synthetic": true,
+    "verification": "unverified",
+    "latitude": 36.7441,
+    "longitude": -4.4282,
+    "created_at": "2026-10-13T10:15:00Z",
+    "age_hours": 2,
+    "pedestrian_use": null,
+    "sensitive_location": null,
+    "context_provenance": {},
+    "lighting_status": {
+      "state": "unknown",
+      "source": "null_provider",
+      "provenance": "unknown"
+    }
+  },
+  {
+    "id": "DEMO-007",
+    "title": "Riesgo eléctrico junto a una farola",
+    "description": "Registro ficticio con riesgo en punto de paso peatonal; requiere revisión urgente.",
+    "category": "electrical_hazard",
+    "district": "Puerto de la Torre",
+    "neighborhood": "Puerto de la Torre",
+    "status": "pending",
+    "source_type": "synthetic",
+    "source_name": "demo_seed",
+    "is_synthetic": true,
+    "verification": "verified",
+    "latitude": 36.7426,
+    "longitude": -4.4748,
+    "created_at": "2026-10-13T01:40:00Z",
+    "age_hours": 7,
+    "pedestrian_use": 58,
+    "sensitive_location": 62,
+    "context_provenance": {
+      "pedestrian_use": "synthetic",
+      "sensitive_location": "synthetic"
+    },
+    "lighting_status": {
+      "state": "unknown",
+      "source": "null_provider",
+      "provenance": "unknown"
+    }
+  },
+  {
+    "id": "DEMO-008",
+    "title": "Luminaria apagada en vía secundaria",
+    "description": "Incidencia cerrada como ejemplo de resolución con seguimiento correcto.",
+    "category": "streetlight_failure",
+    "district": "Cruz de Humilladero",
+    "neighborhood": "La Unión",
+    "status": "resolved",
+    "source_type": "synthetic",
+    "source_name": "demo_seed",
+    "is_synthetic": true,
+    "verification": "verified",
+    "latitude": 36.7118,
+    "longitude": -4.4515,
+    "created_at": "2026-10-12T22:00:00Z",
+    "age_hours": 14,
+    "pedestrian_use": 36,
+    "sensitive_location": 49,
+    "context_provenance": {
+      "pedestrian_use": "synthetic",
+      "sensitive_location": "synthetic"
+    },
+    "lighting_status": {
+      "state": "unknown",
+      "source": "null_provider",
+      "provenance": "unknown"
+    }
   }
 ]

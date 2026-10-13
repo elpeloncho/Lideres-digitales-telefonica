@@ -2,7 +2,7 @@ def test_list_incidents_returns_flat_camel_case_engine_summary(api_client):
     response = api_client.get("/api/v1/incidents")
     assert response.status_code == 200
     body = response.json()
-    assert body["total"] == 3
+    assert body["total"] == 8
     incident = next(item for item in body["items"] if item["id"] == "DEMO-001")
     assert incident["sourceType"] == "synthetic"
     assert incident["isSimulated"] is True
@@ -18,9 +18,9 @@ def test_list_filter_and_pagination_work(api_client):
         params={"status": "reported", "limit": 1, "offset": 0},
     )
     assert response.status_code == 200
-    assert response.json()["total"] == 1
+    assert response.json()["total"] == 2
     assert len(response.json()["items"]) == 1
-    assert response.json()["items"][0]["id"] == "DEMO-003"
+    assert response.json()["items"][0]["id"] in {"DEMO-003", "DEMO-006"}
 
 
 def test_invalid_filter_is_rejected(api_client):
@@ -68,7 +68,7 @@ def test_missing_queue_compare_id_returns_404(api_client):
 def test_metadata_reports_data_sources_and_engine(api_client):
     sources = api_client.get("/api/v1/meta/data-sources")
     assert sources.status_code == 200
-    assert sum(item["count"] for item in sources.json()) == 3
+    assert sum(item["count"] for item in sources.json()) == 8
     engine = api_client.get("/api/v1/meta/engine")
     assert engine.status_code == 200
     assert engine.json()["engineVersion"] == "0.2.0"
@@ -78,7 +78,12 @@ def test_metadata_reports_data_sources_and_engine(api_client):
 def test_alerts_only_include_active_high_or_urgent_incidents(api_client):
     response = api_client.get("/api/v1/alerts")
     assert response.status_code == 200
-    assert {item["id"] for item in response.json()} == {"DEMO-001", "DEMO-002"}
+    assert {item["id"] for item in response.json()} == {
+        "DEMO-001",
+        "DEMO-002",
+        "DEMO-005",
+        "DEMO-007",
+    }
 
 
 def test_synthetic_report_can_be_created_and_then_validated(api_client):

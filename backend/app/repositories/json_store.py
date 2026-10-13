@@ -254,7 +254,42 @@ class JsonStore:
                 "El almacén y el historial no son coherentes "
                 f"(revision={revision}, última secuencia={last_sequence})."
             )
+        self._sync_new_seed_records(document)
         return document
+
+    def _sync_new_seed_records(self, document: dict[str, Any]) -> None:
+        try:
+            seed_records = json.loads(self.seed_file.read_text(encoding="utf-8"))
+            records = [DecisionInput.model_validate(item) for item in seed_records]
+        except (OSError, json.JSONDecodeError, ValidationError, TypeError) as exc:
+            raise StoreError(
+                f"El conjunto inicial {self.seed_file} no contiene incidencias válidas."
+            ) from exc
+
+        seed_ids = [record.id for record in records]
+        if len(seed_ids) != len(set(seed_ids)):
+            raise StoreError("El conjunto inicial contiene identificadores duplicados.")
+
+        existing_ids = {record["id"] for record in document["incidents"]}
+        for record in records:
+            if record.id in existing_ids:
+                continue
+            if not record.is_simulated:
+                raise StoreError(
+                    f"La incidencia inicial {record.id} no está marcada como simulada."
+                )
+            document["incidents"].append(
+                record.model_dump(mode="json", exclude={"age_hours"})
+                | {"age_hours": record.age_hours}
+            )
+            self._commit(
+                document,
+                event_type="incident_seeded",
+                incident=record,
+                actor="system",
+                details={"source": record.source_name, "added_to_existing_store": True},
+            )
+            existing_ids.add(record.id)
 
     def _initialize_from_seed(self) -> None:
         existing = [

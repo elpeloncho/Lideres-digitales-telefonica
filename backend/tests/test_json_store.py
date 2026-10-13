@@ -19,12 +19,38 @@ def store(tmp_path: Path):
 
 def test_first_read_initializes_persistent_seed_and_history(store):
     incidents = store.list_incidents()
-    assert len(incidents) == 3
+    assert len(incidents) == len(json.loads(store.seed_file.read_text(encoding="utf-8")))
     assert store.incidents_path.is_file()
     assert store.history_path.is_file()
-    assert len(store.list_history()) == 3
-    assert json.loads(store.incidents_path.read_text())["revision"] == 3
+    assert len(store.list_history()) == len(incidents)
+    assert json.loads(store.incidents_path.read_text())["revision"] == len(incidents)
 
+
+def test_existing_store_adds_new_seed_records_without_overwriting_workflow_state(
+    tmp_path: Path, store
+):
+    all_records = json.loads(store.seed_file.read_text(encoding="utf-8"))
+    older_seed = tmp_path / "older-seed.json"
+    older_seed.write_text(json.dumps(all_records[:3]), encoding="utf-8")
+    existing = JsonStore(tmp_path / "existing-store", older_seed)
+    existing.list_incidents()
+    assigned = existing.apply_workflow_action(
+        "DEMO-001",
+        action="assign",
+        actor="operations_demo",
+        assignee="Lucía Díaz",
+    )
+    assert assigned.status.value == "assigned"
+
+    updated = JsonStore(existing.store_dir, store.seed_file)
+    incidents = updated.list_incidents()
+
+    assert len(incidents) == len(all_records)
+    assert updated.get_incident("DEMO-001").status.value == "assigned"
+    history = updated.list_history()
+    assert len(history) == len(all_records) + 1
+    assert history[-1]["event_type"] == "incident_seeded"
+    assert json.loads(updated.incidents_path.read_text())["revision"] == len(history)
 
 def test_restart_reads_same_seeded_incidents(store):
     first = [incident.model_dump(mode="json") for incident in store.list_incidents()]
@@ -95,7 +121,9 @@ def test_report_and_workflow_actions_are_persisted_and_audited(store):
     ]
     restarted = JsonStore(store.store_dir, store.seed_file)
     assert restarted.get_incident(report.id).status.value == "resolved"
-    assert len(restarted.list_history()) == 7
+    assert len(restarted.list_history()) == len(
+        json.loads(store.seed_file.read_text(encoding="utf-8"))
+    ) + 4
 
 
 def test_workflow_rejects_invalid_transitions(store):
