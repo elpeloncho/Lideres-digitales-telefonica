@@ -1,0 +1,81 @@
+[
+  {
+    "id": "DEMO-001",
+    "title": "Luminaria apagada en zona de paso",
+    "description": "Incidencia ficticia de demostración en el entorno de la Alameda.",
+    "category": "streetlight_failure",
+    "district": "Centro",
+    "neighborhood": "Centro histórico",
+    "status": "pending",
+    "source_type": "synthetic",
+    "source_name": "demo_seed",
+    "verification": "not_applicable",
+    "latitude": 36.7213,
+    "longitude": -4.4214,
+    "created_at": "2026-10-12T08:00:00Z",
+    "age_hours": 26,
+    "pedestrian_use": 95,
+    "sensitive_location": 92,
+    "context_provenance": {
+      "pedestrian_use": "synthetic",
+      "sensitive_location": "synthetic"
+    },
+    "lighting_status": {
+      "state": "unknown",
+      "source": "null_provider",
+      "provenance": "unknown"
+    }
+  },
+  {
+    "id": "DEMO-002",
+    "title": "Poste dañado junto a una plaza",
+    "description": "Poste con daños visibles; caso ficticio para probar la revisión urgente.",
+    "category": "damaged_pole",
+    "district": "Centro",
+    "neighborhood": "Soho",
+    "status": "pending",
+    "source_type": "synthetic",
+    "source_name": "demo_seed",
+    "verification": "not_applicable",
+    "latitude": 36.7194,
+    "longitude": -4.4197,
+    "created_at": "2026-10-13T06:00:00Z",
+    "age_hours": 4,
+    "pedestrian_use": 30,
+    "sensitive_location": 20,
+    "context_provenance": {
+      "pedestrian_use": "synthetic",
+      "sensitive_location": "synthetic"
+    },
+    "lighting_status": {
+      "state": "unknown",
+      "source": "null_provider",
+      "provenance": "unknown"
+    }
+  },
+  {
+    "id": "DEMO-003",
+    "title": "Reporte pendiente de verificación",
+    "description": "Reporte de demostración; necesita triaje antes de entrar en la cola.",
+    "category": "streetlight_failure",
+    "district": "Centro",
+    "neighborhood": "La Merced",
+    "status": "reported",
+    "source_type": "resident_report",
+    "source_name": "public_report",
+    "is_synthetic": true,
+    "verification": "unverified",
+    "latitude": 36.7231,
+    "longitude": -4.4179,
+    "created_at": "2026-10-13T09:00:00Z",
+    "age_hours": 1,
+    "pedestrian_use": null,
+    "sensitive_location": null,
+    "context_provenance": {},
+    "lighting_status": {
+      "state": "unknown",
+      "source": "null_provider",
+      "provenance": "unknown"
+    }
+  }
+]
